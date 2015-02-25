@@ -3,8 +3,10 @@ package com.safevigilance.customlockscreenexample.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.safevigilance.customlockscreenexample.MainScreen;
 import com.safevigilance.customlockscreenexample.MyService;
 
 /**
@@ -25,6 +27,16 @@ public class StartMyServiceAtBootReceiver extends BroadcastReceiver {
 
             Intent serviceIntent = new Intent(context, MyService.class);
             context.startService(serviceIntent);
+        }
+        else if(intent.getAction().equals(Intent.ACTION_SCREEN_ON)){
+            Log.d("[BroadcastReceiver]", "Screen ON");
+            Intent actIntent = new Intent(context, MainScreen.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(actIntent);
+        }
+        else if(intent.getAction().equals(Intent.ACTION_SCREEN_OFF)){
+            Log.d("[BroadcastReceiver]", "Screen OFF");
+
         }
     }
 }
